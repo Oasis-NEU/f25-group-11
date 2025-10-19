@@ -12,25 +12,25 @@ export default function Navbar() {
     return (
         <nav className="bg-tea text-green shadow-lg">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-25">
+                <div className="flex justify-between items-center h-14">
                     {/*Logo*/}
                     <div className="flex-shrink-0" >
-                        <h1 className="text-4xl font-display font-bold cursor-default">Healthy Huskies</h1>
+                        <h1 className="text-2xl font-display font-bold cursor-default">Healthy Huskies</h1>
                     </div>
                     <div className="hidden lg:flex space-x-8 items-center ml-auto">
-                        <Link to='/' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Home
                         </Link>
-                        <Link to='/menu' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/menu' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
                         </Link>
-                        <Link to='/progress' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/progress' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Progress
                         </Link>
-                        <Link to='/community' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/community' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
                         </Link>
-                        <Link to='/settings' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/settings' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Settings
                         </Link>
                     </div>

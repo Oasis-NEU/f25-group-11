@@ -1,19 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar.jsx";
-import Profile from "./pages/profile-page.jsx"
+//import Profile from "./pages/profile-page.jsx"
 import Settings from "./pages/settings.jsx";
 
 function App() {
     return (
-    <div>
         <BrowserRouter>
             <Navbar />
             <Routes>
+                {/*<Route path="/profile-page" element={<Profile />} />*/}
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>
-    <Profile></Profile>
-    </div>
     )
 }
 

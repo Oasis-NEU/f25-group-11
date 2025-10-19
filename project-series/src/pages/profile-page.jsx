@@ -1,10 +1,14 @@
-export default function Profile() {
-  /*
-  const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [bio, setBio] = useState("");
+//import { useState } from 'react';
 
+export default function Profile() {
+
+//probably would need like a popup for an edit profile where you can these things
+//text boxes for each one to put values in
+//add a save button which will set each value
+//onSubmit event
+//<input>
+
+/*
   const [calories, setCalories] = useState("");
   const [goal, setGoal] = useState("");
   const [protein, setProtein] = useState("");
@@ -16,7 +20,7 @@ export default function Profile() {
   const [weeklyProtein, setWeeklyProtein] = useState("");
   const [weeklyFat, setWeeklyFat] = useState("");
   const [weeklyCarbs, setWeeklyCarbs] = useState("");
-  */
+*/
   return (
     <div className="flex flex-col gap-8 p-4">
       {/* Top Row: Profile Pic, Biography, Today's Progress */}

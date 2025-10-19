@@ -10,27 +10,27 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="bg-yellow-200 text-white shadow-lg w-full">
+        <nav className="bg-tea text-green shadow-lg">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-25">
                     {/*Logo*/}
                     <div className="flex-shrink-0" >
-                        <h1 className="text-4xl font-bold cursor-default">MyFitnessPal</h1>
+                        <h1 className="text-4xl font-display font-bold cursor-default">Healthy Huskies</h1>
                     </div>
                     <div className="hidden lg:flex space-x-8 items-center ml-auto">
-                        <Link to='/' className="text-2xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Home
                         </Link>
-                        <Link to='/menu' className="text-2xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/menu' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
                         </Link>
-                        <Link to='/progress' className="text-2xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/progress' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Progress
                         </Link>
-                        <Link to='/community' className="text-2xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/community' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
                         </Link>
-                        <Link to='/settings' className="text-2xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/settings' className="text-2xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Settings
                         </Link>
                     </div>
@@ -60,20 +60,20 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <div className="px-2 py-2 bg-yellow-200">
-                        <Link to='/' onClick={toggleMenu} className="block text-xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                    <div className="px-2 py-2 bg-tea">
+                        <Link to='/' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Home
                         </Link>
-                        <Link to='/menu' onClick={toggleMenu} className="block text-xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/menu' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
                         </Link>
-                        <Link to='/progress' onClick={toggleMenu} className="block text-xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/progress' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Progress
                         </Link>
-                        <Link to='/community' onClick={toggleMenu}  className="block text-xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/community' onClick={toggleMenu}  className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
                         </Link>
-                        <Link to='/settings' onClick={toggleMenu} className="block text-xl font-bold hover:text-blue-300 border-b-2 border-transparent hover:border-blue-300 transition-all duration-300 ease-in-out pb-1">
+                        <Link to='/settings' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Settings
                         </Link>
                     </div>

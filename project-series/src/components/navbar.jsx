@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-14">
                     {/*Logo*/}
-                    <div className="flex-shrink-0" >
+                    <div className="flex-shrink-0 pt-3" >
                         <h1 className="text-2xl font-display font-bold cursor-default">Healthy Huskies</h1>
                     </div>
                     <div className="hidden lg:flex space-x-8 items-center ml-auto">

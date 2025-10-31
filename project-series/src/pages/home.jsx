@@ -11,8 +11,35 @@ export default function Home() {
                         </p>
                         <img src={graphImage} alt="Temporary Graph" className="w-full"/>
                     </div>
-                    <div className="w-full px-4 py-12 sm:px-6 lg:px-8 bg-tea rounded-lg cursor-default shadow-lg">
-                        week
+                    <div className=" w-full px-4 py-6 sm:px-6 lg:px-8 bg-tea rounded-lg cursor-default shadow-lg">
+                        <div className="flex flex-col">
+                            <h4>
+                                Week
+                            </h4>
+                            <div className="flex gap-6">
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                Sun
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Mon
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Tue
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Wed
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Thur
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Fri
+                                </div>
+                                <div className="w-full px-4 py-8 sm:px-6 lg:px-8 bg-lightertea rounded-lg cursor-pointer shadow-lg" >
+                                    Sat
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import graphImage from '../assets/temp-graph.png';
+import graphImage from "../assets/temp-graph.png";
 export default function Home() {
     return (
         <div className="flex flex-col gap-6 py-6">

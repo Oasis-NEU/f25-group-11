@@ -10,7 +10,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="bg-tea text-green" style={{boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)'}}>
+        <nav className="bg-tea text-green relative z-50" style={{boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)'}}>
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-14">
                     {/*Logo*/}
@@ -34,7 +34,7 @@ export default function Navbar() {
                             Settings
                         </Link>
                     </div>
-                    <div className="lg:hidden">
+                    <div className={"lg:hidden"}>
                         <button onClick={toggleMenu} className="inline-flex items-center ml-auto p-2 rounded-md transition-all duration-300">
                             <div className="relative w-7 h-7">
                                 {/* Menu icon */}

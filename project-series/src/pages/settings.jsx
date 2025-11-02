@@ -16,6 +16,30 @@ export default function Settings() {
               active={activeTab === "general"}
               onClick={() => setActiveTab("general")}
             />
+            <SidebarItem
+              icon={Shield}
+              label="Security"
+              active={activeTab === "security"}
+              onClick={() => setActiveTab("security")}
+            />
+            <SidebarItem
+              icon={CreditCard}
+              label="Billing"
+              active={activeTab === "billing"}
+              onClick={() => setActiveTab("billing")}
+            />
+            <SidebarItem
+              icon={Bell}
+              label="Notifications"
+              active={activeTab === "notifications"}
+              onClick={() => setActiveTab("notifications")}
+            />
+            <SidebarItem
+              icon={Users}
+              label="Privacy"
+              active={activeTab === "privacy"}
+              onClick={() => setActiveTab("privacy")}
+            />
           </nav>
         </aside>
 

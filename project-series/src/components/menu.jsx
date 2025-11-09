@@ -34,7 +34,7 @@ export default function Menu({ location, mealPeriod }) {
 
     return (
         <div>
-            {menuItems && menuItems.map((item) => (
+            {menuItems.length > 0 ? menuItems.map((item) => (
                 <div 
                     key={item.id} 
                     className="bg-egg rounded-lg p-4 mb-3 shadow-md hover:shadow-lg transition-shadow duration-200"
@@ -62,7 +62,11 @@ export default function Menu({ location, mealPeriod }) {
                         </div>
                     </div>
                 </div>
-            ))}
+            )) : (
+                <div className="bg-egg rounded-lg p-4 text-center text-gray-500">
+                    No items found
+                </div>
+            )}
 	    </div>
     );
 }

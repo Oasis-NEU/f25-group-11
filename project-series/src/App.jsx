@@ -3,7 +3,7 @@ import Navbar from "./components/navbar.jsx";
 import Settings from "./pages/settings.jsx";
 import Home from "./pages/home.jsx";
 import Community from './pages/community.jsx';
-import MenuPage from './pages/menu.jsx';
+import MenuPage from './pages/menuPage.jsx';
 
 function App() {
     return (

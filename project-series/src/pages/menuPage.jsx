@@ -1,25 +1,10 @@
 import React, { useState } from 'react';
-// import FoodItem from './components/fooditem.jsx';
-// import NavBar from './components/navbar.jsx';
+import Menu from '../components/menu.jsx';
 
 export default function MenuPage() {
 
     // 1 = breakfast, 2 = lunch, 3 = dinner
-    const [mealPeriod, setMealPeriod] = useState('1')
-
-    const steastMenu = [
-        'Poop',
-        'Toilet Soup',
-        'Dirt',
-        "ryan chang is delicious"
-    ];
-
-    const IVMenu = [
-        'Pasta',
-        'Pizza',
-        'Lamb Curry',
-        "kevin wang is a snack"
-    ];
+    const [mealPeriod, setMealPeriod] = useState('1');
 
     // const handleClick = (event) => console.log(event)
 
@@ -38,11 +23,7 @@ export default function MenuPage() {
                     transition-all duration-500
                     ${steastOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
                 `}>
-                    {steastMenu.map((food) => (
-                        <div key={food} className="px-5 py-5 my-5 bg-egg brightness-90 rounded-lg shadow-lg">
-                            {food}
-                        </div>
-                    ))}
+                    <Menu></Menu>
                 </div>
             </div>
 
@@ -56,11 +37,7 @@ export default function MenuPage() {
                     transition-all duration-500
                     ${IVOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
                 `}>
-                    {IVMenu.map((food) => (
-                        <div key={food} className="px-5 py-5 my-5 bg-egg brightness-90 rounded-lg shadow-lg">
-                            {food}
-                        </div>
-                    ))}
+                    <Menu></Menu>
                 </div>
             </div>
 

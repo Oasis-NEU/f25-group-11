@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabase';
+import AddItemModal from './addItemModal';
 
 export default function Menu({ location, mealPeriod }) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState('');
 
     const [menuItems, setMenuItems] = useState([]);
     
@@ -21,7 +24,7 @@ export default function Menu({ location, mealPeriod }) {
 
                 for (let i = 0; i < data.length; i++) {
                     if ((!location || data[i].location === location) &&
-                        (!mealPeriod || data[i].meal_period === mealPeriod)) {
+                        (!mealPeriod || data[i].meal_period.includes(mealPeriod))) {
                         filteredData.push(data[i]);
                     }
                 }
@@ -60,6 +63,21 @@ export default function Menu({ location, mealPeriod }) {
                                 {item.carbs}g <span className="text-gray-500 font-normal">carbs</span>
                             </span>
                         </div>
+
+                        <button onClick={() => {
+                                setSelectedItem(item.item_name);
+                                setModalOpen(true);
+                            }}
+                            className="ml-auto text-sm px-2 py-1 rounded-md shadow-md cursor-pointer hover:bg-blue hover:text-white bg-egg brightness-90 transition-all"
+                        >
+                            Add to plan
+                        </button>
+
+                        <AddItemModal 
+                            name={selectedItem}
+                            isOpen={modalOpen}
+                            onClose={() => setModalOpen(false)}
+                        />
                     </div>
                 </div>
             )) : (

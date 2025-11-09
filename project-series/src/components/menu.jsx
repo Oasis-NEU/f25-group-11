@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../supabase';
 
-export default function Menu() {
+export default function Menu({ location, mealPeriod }) {
 
     const [menuItems, setMenuItems] = useState([]);
     
@@ -15,7 +16,16 @@ export default function Menu() {
                 .select("*"); // Select (fetch) everything
             if (error) throw error; // If there is an error, throw it
             if (data != null) { // If there is data fetched
-                setMenuItems(data); // Set our groceries state variable to the data
+                
+                const filteredData = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    if ((!location || data[i].location === location) &&
+                        (!mealPeriod || data[i].meal_period === mealPeriod)) {
+                        filteredData.push(data[i]);
+                    }
+                }
+                setMenuItems(filteredData); // Set our groceries state variable to the data
             }
         } catch (error) {
             alert(error.message); // If an error is caught, alert it on the client
@@ -24,13 +34,35 @@ export default function Menu() {
 
     return (
         <div>
-            <ul>
-                {menu_items && menu_items.map((item) => (
-                    <li key={item.id}>
-                        {item.item_name} - ${item.calories}{" "}
-                    </li>
-                ))}
-            </ul>
+            {menuItems && menuItems.map((item) => (
+                <div 
+                    key={item.id} 
+                    className="bg-egg rounded-lg p-4 mb-3 shadow-md hover:shadow-lg transition-shadow duration-200"
+                >
+                    <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-lg font-bold text-green">{item.item_name}</h3>
+                        <span className="text-sm px-2 py-1 bg-tea rounded-full text-green">
+                            {item.meal_period}
+                        </span>
+                    </div>
+        
+                    <p className="text-sm text-gray-600 mb-3">{item.category}</p>
+                    
+                    <div className="flex justify-between items-center text-sm">
+                        <div className="flex gap-4">
+                            <span className="font-semibold">
+                                {item.calories} <span className="text-gray-500 font-normal">cal</span>
+                            </span>
+                            <span className="font-semibold">
+                                {item.protein}g <span className="text-gray-500 font-normal">protein</span>
+                            </span>
+                            <span className="font-semibold">
+                                {item.carbs}g <span className="text-gray-500 font-normal">carbs</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            ))}
 	    </div>
     );
 }

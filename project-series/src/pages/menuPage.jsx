@@ -3,10 +3,13 @@ import Menu from '../components/menu.jsx';
 
 export default function MenuPage() {
 
-    // 1 = breakfast, 2 = lunch, 3 = dinner
-    const [mealPeriod, setMealPeriod] = useState('1');
+    // 0 = breakfast, 1 = lunch, 2 = dinner
+    const [mealPeriod, setMealPeriod] = useState('0');
+    // these should match supabase names for meal periods
+    const periods = ['Breakfast', 'Lunch', 'Dinner'];
 
-    // const handleClick = (event) => console.log(event)
+    // 0 = steast, 1 = IV. Names should match supabase names for locations
+    const locations = ['steast', 'iv'];
 
     const [steastOpen, openSteast] = useState(false)
     const [IVOpen, openIV] = useState(false)
@@ -23,7 +26,7 @@ export default function MenuPage() {
                     transition-all duration-500
                     ${steastOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
                 `}>
-                    <Menu></Menu>
+                    <Menu location={locations[0]} mealPeriod={periods[mealPeriod]}></Menu>
                 </div>
             </div>
 
@@ -37,7 +40,7 @@ export default function MenuPage() {
                     transition-all duration-500
                     ${IVOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
                 `}>
-                    <Menu></Menu>
+                    <Menu location={locations[1]} mealPeriod={periods[mealPeriod]}></Menu>
                 </div>
             </div>
 

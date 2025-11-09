@@ -7,7 +7,7 @@ export default function Menu({ location, mealPeriod }) {
     
     useEffect(() => {
         getMenuItems()
-    }, []);
+    }, [location, mealPeriod]);
 
     async function getMenuItems() {
         try {

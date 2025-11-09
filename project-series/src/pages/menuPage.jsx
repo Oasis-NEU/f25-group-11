@@ -4,7 +4,7 @@ import Menu from '../components/menu.jsx';
 export default function MenuPage() {
 
     // 0 = breakfast, 1 = lunch, 2 = dinner
-    const [mealPeriod, setMealPeriod] = useState('0');
+    const [mealPeriod, setMealPeriod] = useState(0);
     // these should match supabase names for meal periods
     const periods = ['Breakfast', 'Lunch', 'Dinner'];
 
@@ -48,17 +48,36 @@ export default function MenuPage() {
                 <div className="w-full h-full px-5 py-5 bg-tea">
                     <h2 className="text-center">
                         Meal Period
-                        (these should be selectable)
                     </h2>
 
-                    <div className="px-5 py-5 my-5 bg-egg brightness-90 rounded-lg shadow-lg">
-                        breakfast
+                    <div onClick={() => setMealPeriod(0)}
+                        className={`px-5 py-5 my-5 rounded-lg shadow-lg cursor-pointer transition-all ${
+                            mealPeriod === 0 
+                                ? 'bg-blue text-white brightness-100' 
+                                : 'bg-egg brightness-90'
+                        }`}
+                    >
+                        Breakfast
                     </div>
-                    <div className="px-5 py-5 my-5 bg-egg brightness-90 rounded-lg shadow-lg">
-                        lunch
+
+                    <div onClick={() => setMealPeriod(1)}
+                        className={`px-5 py-5 my-5 rounded-lg shadow-lg cursor-pointer transition-all ${
+                            mealPeriod === 1 
+                                ? 'bg-blue text-white brightness-100' 
+                                : 'bg-egg brightness-90'
+                        }`}
+                    >
+                        Lunch
                     </div>
-                    <div className="px-5 py-5 my-5 bg-egg brightness-90 rounded-lg shadow-lg">
-                        dinner
+
+                    <div onClick={() => setMealPeriod(2)}
+                        className={`px-5 py-5 my-5 rounded-lg shadow-lg cursor-pointer transition-all ${
+                            mealPeriod === 2 
+                                ? 'bg-blue text-white brightness-100' 
+                                : 'bg-egg brightness-90'
+                        }`}
+                    >
+                        Dinner
                     </div>
                 </div>
             </div>

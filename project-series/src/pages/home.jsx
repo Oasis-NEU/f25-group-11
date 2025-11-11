@@ -1,8 +1,7 @@
-import React, { useState , useEffect } from "react";
-import graphImage from "../assets/temp-graph.png";
+import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { supabase } from '../supabaseClient';
+import { supabase } from "../supabase";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const today = new Date();
@@ -20,12 +19,11 @@ function getDatesForWeek() {
     week.push(date);
   }
   return week;
-};
+}
 
 // days
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  
 export default function Home() {
   const weekDates = getDatesForWeek();
   const [selectedDay, setSelectedDay] = useState(today.toDateString());
@@ -39,56 +37,53 @@ export default function Home() {
   const selectedDayIndex = selectedDate.getDay(); // 0-6 (Sun-Sat)
   const shortDayName = daysOfWeek[selectedDayIndex];
 
-  // Now use the short day name to get meals
-  const dayMeals = weekMeals[shortDayName] || null;
-  const breakfastData = dayMeals?.breakfast || [];
-  const lunchData = dayMeals?.lunch || [];
-  const dinnerData = dayMeals?.dinner || [];
-
   // Fetch data from Supabase
   useEffect(() => {
     async function fetchMeals() {
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from('day_item')
-          .select(`
-            date,
-            menu_items (
-              name,
-              calories,
-              meal_period
-            )
-          `);
+        console.log("Starting to fetch meals...");
+
+        const { data, error } = await supabase.from("day_item").select(`
+          date,
+          menu_item:menu_items!menu_item (
+            item_name,
+            calories,
+            meal_period
+          )
+        `);
+
+        console.log("Supabase response:", { data, error });
 
         if (error) throw error;
 
         // Transform the data
         const transformedData = {};
-        
-        data.forEach(item => {
+
+        data.forEach((item) => {
           const day = item.date; // "Sun", "Mon", etc.
-          const mealPeriod = item.menu_items.meal_period.toLowerCase(); // "breakfast", "lunch", "dinner"
-          
+          const mealPeriod = item.menu_item.meal_period.toLowerCase(); // "breakfast", "lunch", "dinner"
+
           // Initialize day if it doesn't exist
           if (!transformedData[day]) {
             transformedData[day] = {
               breakfast: [],
               lunch: [],
-              dinner: []
+              dinner: [],
             };
           }
-          
+
           // Add the meal to the appropriate meal period
           transformedData[day][mealPeriod].push({
-            name: item.menu_items.name,
-            calories: item.menu_items.calories
+            name: item.menu_item.item_name,
+            calories: item.menu_item.calories,
           });
         });
-        
+
+        console.log("Transformed data:", transformedData);
         setWeekMeals(transformedData);
       } catch (error) {
-        console.error('Error fetching meals:', error);
+        console.error("Error fetching meals:", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -98,26 +93,38 @@ export default function Home() {
     fetchMeals();
   }, []);
 
+  // Now use the short day name to get meals
+  const dayMeals = weekMeals[shortDayName] || null;
+  const breakfastData = dayMeals?.breakfast || [];
+  const lunchData = dayMeals?.lunch || [];
+  const dinnerData = dayMeals?.dinner || [];
+
   // Add this useEffect to track window resizing
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  const totalCalories =
+  breakfastData.reduce((sum, meal) => sum + meal.calories, 0) +
+  lunchData.reduce((sum, meal) => sum + meal.calories, 0) +
+  dinnerData.reduce((sum, meal) => sum + meal.calories, 0);
+  
   const chartData = {
-    labels: ['Breakfast', 'Lunch', 'Dinner'],
-    datasets: [{
-      data: [
-        breakfastData.reduce((sum, meal) => sum + meal.calories, 0),
-        lunchData.reduce((sum, meal) => sum + meal.calories, 0),
-        dinnerData.reduce((sum, meal) => sum + meal.calories, 0)
-      ],
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-    }]
+    labels: ["Breakfast", "Lunch", "Dinner"],
+    datasets: [
+      {
+        data: [
+          breakfastData.reduce((sum, meal) => sum + meal.calories, 0),
+          lunchData.reduce((sum, meal) => sum + meal.calories, 0),
+          dinnerData.reduce((sum, meal) => sum + meal.calories, 0),
+        ],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+      },
+    ],
   };
 
   if (loading) {
@@ -144,11 +151,11 @@ export default function Home() {
             <h4 className="pb-4">Total calories</h4>
             <div className="w-full max-w-md mx-auto">
               <Pie
-                key={`${selectedDay}-${windowWidth}`} 
-                data={chartData} 
-                redraw={true} 
-                options={{ maintainAspectRatio: true, responsive: true}}
-                />
+                key={`${selectedDay}-${windowWidth}`}
+                data={chartData}
+                redraw={true}
+                options={{ maintainAspectRatio: true, responsive: true }}
+              />
             </div>
           </div>
           <div className=" w-full px-4 py-4 sm:px-6 lg:px-8 bg-tea rounded-lg cursor-default shadow-lg">
@@ -234,6 +241,7 @@ export default function Home() {
               </table>
 
               <h4>Total</h4>
+              <p className="text-lg font-semibold">{totalCalories} calories</p>
             </div>
           </div>
         ) : null}

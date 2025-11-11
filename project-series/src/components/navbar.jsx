@@ -24,9 +24,6 @@ export default function Navbar() {
                         <Link to='/menu' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
                         </Link>
-                        <Link to='/progress' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
-                            Progress
-                        </Link>
                         <Link to='/community' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
                         </Link>
@@ -66,9 +63,6 @@ export default function Navbar() {
                         </Link>
                         <Link to='/menu' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
-                        </Link>
-                        <Link to='/progress' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
-                            Progress
                         </Link>
                         <Link to='/community' onClick={toggleMenu}  className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community

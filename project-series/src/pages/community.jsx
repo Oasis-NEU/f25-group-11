@@ -54,16 +54,16 @@ export default function Community() {
     : messages;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-6">
+    <div className="min-h-screen bg-egg p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
+        <div className="bg-tea rounded-xl shadow-lg p-8 mb-6">
           <h1 className="text-4xl font-bold text-emerald-700 mb-2">Community Board</h1>
           <p className="text-gray-600">Share recipes, tips, and healthy eating advice</p>
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-lg mb-6">
+        <div className="bg-tea rounded-xl shadow-lg mb-6">
           <div className="flex border-b">
             <button
               onClick={() => setActiveTab('all')}
@@ -89,21 +89,21 @@ export default function Community() {
         </div>
 
         {/* New Message Section */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Start a Discussion</h2>
+        <div className="bg-tea rounded-xl shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold text-darktea-800 mb-4">Start a Discussion</h2>
           <div className="space-y-4">
             <input
               type="text"
               placeholder="Your name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-3 border border-darktea-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none"
             />
             <textarea
               placeholder="Share your thoughts, recipes, or questions..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none resize-none"
+              className="w-full px-4 py-3 border border-darktea-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none resize-none"
               rows="4"
             />
             <button
@@ -120,7 +120,7 @@ export default function Community() {
           {filteredMessages.map((message) => (
             <div
               key={message.id}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition"
+              className="bg-tea rounded-xl shadow-lg p-6 hover:shadow-xl transition"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center space-x-3">
@@ -159,7 +159,7 @@ export default function Community() {
         </div>
 
         {/* Stats */}
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
+        <div className="mt-8 bg-tea rounded-xl shadow-lg p-6">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-3xl font-bold text-emerald-700">{messages.length}</p>

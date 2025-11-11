@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import graphImage from "../assets/temp-graph.png";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
+import { supabase } from '../supabaseClient';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const today = new Date();
@@ -23,145 +23,81 @@ function getDatesForWeek() {
 };
 
 // days
-const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-
-//hardcoded meal data for the week
-const WEEK_MEALS = {
-  Sun: {
-    breakfast: [
-      { name: "Pancakes", calories: 350 },
-      { name: "Maple Syrup", calories: 100 },
-      { name: "Orange Juice", calories: 110 },
-    ],
-    lunch: [
-      { name: "Caesar Salad", calories: 400 },
-      { name: "Breadsticks", calories: 150 },
-    ],
-    dinner: [
-      { name: "Steak", calories: 679 },
-      { name: "Mashed Potatoes", calories: 237 },
-      { name: "Green Beans", calories: 44 },
-    ],
-  },
-  Mon: {
-    breakfast: [
-      { name: "Oatmeal", calories: 150 },
-      { name: "Banana", calories: 105 },
-      { name: "Coffee", calories: 5 },
-    ],
-    lunch: [
-      { name: "Turkey Sandwich", calories: 350 },
-      { name: "Chips", calories: 150 },
-    ],
-    dinner: [
-      { name: "Pasta", calories: 400 },
-      { name: "Marinara Sauce", calories: 70 },
-      { name: "Garlic Bread", calories: 150 },
-    ],
-  },
-  Tue: {
-    breakfast: [
-      { name: "Toast", calories: 80 },
-      { name: "Scrambled Eggs", calories: 200 },
-      { name: "Coffee", calories: 5 },
-    ],
-    lunch: [
-      { name: "Tomato Soup", calories: 150 },
-      { name: "Grilled Cheese", calories: 400 },
-    ],
-    dinner: [
-      { name: "Grilled Chicken", calories: 335 },
-      { name: "Rice", calories: 206 },
-      { name: "Broccoli", calories: 55 },
-    ],
-  },
-  Wed: {
-    breakfast: [
-      { name: "Bacon", calories: 90 },
-      { name: "Coffee", calories: 5 },
-    ],
-    lunch: [
-      { name: "Chicken Soup", calories: 180 },
-      { name: "Grilled Cheese", calories: 400 },
-    ],
-    dinner: [
-      { name: "Rice", calories: 206 },
-      { name: "Broccoli", calories: 55 },
-    ],
-  },
-  Thur: {
-    breakfast: [
-      { name: "Cereal", calories: 30 },
-      { name: "Water", calories: 0 },
-    ],
-    lunch: [
-      { name: "Mac n Cheese", calories: 200 },
-      { name: "Soda", calories: 200 },
-    ],
-    dinner: [
-      { name: "Grilled Chicken", calories: 335 },
-      { name: "Rice", calories: 206 },
-      { name: "Broccoli", calories: 55 },
-    ],
-  },
-  Fri: {
-    breakfast: [
-      { name: "Toast", calories: 80 },
-      { name: "Coffee", calories: 5 },
-    ],
-    lunch: [{ name: "Tomato Soup", calories: 150 }],
-    dinner: [
-      { name: "Grilled Chicken", calories: 335 },
-      { name: "Broccoli", calories: 55 },
-    ],
-  },
-  Sat: {
-    breakfast: [
-      { name: "Oatmeal", calories: 150 },
-      { name: "Banana", calories: 105 },
-      { name: "Coffee", calories: 5 },
-    ],
-    lunch: [
-      { name: "Caesar Salad", calories: 400 },
-      { name: "Breadsticks", calories: 150 },
-    ],
-    dinner: [
-      { name: "Pasta", calories: 400 },
-      { name: "Marinara Sauce", calories: 70 },
-      { name: "Garlic Bread", calories: 150 },
-    ],
-  },
-};
-
+const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   
 export default function Home() {
   const weekDates = getDatesForWeek();
   const [selectedDay, setSelectedDay] = useState(today.toDateString());
+  const [weekMeals, setWeekMeals] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   // Get the day of week index from the selected date
   const selectedDate = new Date(selectedDay);
   const selectedDayIndex = selectedDate.getDay(); // 0-6 (Sun-Sat)
   const shortDayName = daysOfWeek[selectedDayIndex];
 
   // Now use the short day name to get meals
-  const dayMeals = selectedDay ? WEEK_MEALS[shortDayName] : null;
+  const dayMeals = weekMeals[shortDayName] || null;
   const breakfastData = dayMeals?.breakfast || [];
   const lunchData = dayMeals?.lunch || [];
   const dinnerData = dayMeals?.dinner || [];
 
-  const chartData = {
-  labels: ['Breakfast', 'Lunch', 'Dinner'],
-      datasets: [{
-        data: [
-          breakfastData.reduce((sum, meal) => sum + meal.calories, 0),
-          lunchData.reduce((sum, meal) => sum + meal.calories, 0),
-          dinnerData.reduce((sum, meal) => sum + meal.calories, 0)
-      ],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-    }]
-  };
+  // Fetch data from Supabase
+  useEffect(() => {
+    async function fetchMeals() {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('day_item')
+          .select(`
+            date,
+            menu_items (
+              name,
+              calories,
+              meal_period
+            )
+          `);
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+        if (error) throw error;
+
+        // Transform the data
+        const transformedData = {};
+        
+        data.forEach(item => {
+          const day = item.date; // "Sun", "Mon", etc.
+          const mealPeriod = item.menu_items.meal_period.toLowerCase(); // "breakfast", "lunch", "dinner"
+          
+          // Initialize day if it doesn't exist
+          if (!transformedData[day]) {
+            transformedData[day] = {
+              breakfast: [],
+              lunch: [],
+              dinner: []
+            };
+          }
+          
+          // Add the meal to the appropriate meal period
+          transformedData[day][mealPeriod].push({
+            name: item.menu_items.name,
+            calories: item.menu_items.calories
+          });
+        });
+        
+        setWeekMeals(transformedData);
+      } catch (error) {
+        console.error('Error fetching meals:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMeals();
+  }, []);
+
   // Add this useEffect to track window resizing
   useEffect(() => {
     const handleResize = () => {
@@ -171,6 +107,34 @@ export default function Home() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const chartData = {
+    labels: ['Breakfast', 'Lunch', 'Dinner'],
+    datasets: [{
+      data: [
+        breakfastData.reduce((sum, meal) => sum + meal.calories, 0),
+        lunchData.reduce((sum, meal) => sum + meal.calories, 0),
+        dinnerData.reduce((sum, meal) => sum + meal.calories, 0)
+      ],
+      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+    }]
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl">Loading meals...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 py-5">

@@ -10,7 +10,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="bg-tea text-green shadow-lg">
+        <nav className="bg-tea text-green relative z-50" style={{boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)'}}>
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-14">
                     {/*Logo*/}
@@ -24,9 +24,6 @@ export default function Navbar() {
                         <Link to='/menu' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
                         </Link>
-                        <Link to='/progress' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
-                            Progress
-                        </Link>
                         <Link to='/community' className="text-1xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
                         </Link>
@@ -34,7 +31,7 @@ export default function Navbar() {
                             Settings
                         </Link>
                     </div>
-                    <div className="lg:hidden">
+                    <div className={"lg:hidden"}>
                         <button onClick={toggleMenu} className="inline-flex items-center ml-auto p-2 rounded-md transition-all duration-300">
                             <div className="relative w-7 h-7">
                                 {/* Menu icon */}
@@ -66,9 +63,6 @@ export default function Navbar() {
                         </Link>
                         <Link to='/menu' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Menu
-                        </Link>
-                        <Link to='/progress' onClick={toggleMenu} className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
-                            Progress
                         </Link>
                         <Link to='/community' onClick={toggleMenu}  className="block text-xl font-display font-bold hover:text-blue border-b-2 border-transparent hover:border-blue transition-all duration-300 ease-in-out pb-1">
                             Community
